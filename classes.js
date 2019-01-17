@@ -31,7 +31,21 @@
 
 //Code Here
 
+class Employee {
+  constructor(first_name, last_name, email, age) {
+    this.first_name = first_name;
+    this.last_name = last_name;
+    this.email = email;
+    this.age = age;
+  }
+  makeWidget(){
+    return `${this.first_name} ${this.last_name} Widget`;
+  }
+}
 
+const employee1 = new Employee('Michael', 'Jackson', 'email@domain', 42);
+const employee2 = new Employee('Steven', 'Colbert', 'email@domain', 51);
+// console.log(employee1.makeWidget());
 
 ////////// PROBLEM 2 //////////
 
@@ -51,7 +65,32 @@
 
 //Code Here
 
+class Manager {
+  constructor(first_name, last_name, email, age) {
+    this.first_name = first_name;
+    this.last_name = last_name;
+    this.email = email;
+    this.age = age;
+    this.reports = [];
+  }
+  makeWidget(){
+    return `${this.first_name} ${this.last_name} Widget`;
+  }
+  hire(employee){
+    this.reports.push(employee);
+  }
+  fire(employeeIndex){
+    // this.reports.splice(this.reports.indexOf(employee), 1);
+    this.reports.splice(employeeIndex, 1);
+  }
+}
 
+// const manager = new Manager('David', 'Smith', 'email@domain', 31)
+// manager.hire(employee1);
+// manager.hire(employee2);
+// console.log(manager);
+// manager.fire(employee2);
+// console.log(manager);
 
 ////////// PROBLEM 3 //////////
 
@@ -77,7 +116,40 @@
 
 //Code Here
 
+class ProgressiveManager {
+  constructor(first_name, last_name, email, age) {
+    this.first_name = first_name;
+    this.last_name = last_name;
+    this.email = email;
+    this.age = age;
+    this.reports = [];
+    this.title = 'Not a manager';
+    this.bonus = 0;
+  }
+  makeWidget(){
+    return `${this.first_name} ${this.last_name} Widget`;
+  }
+  hire(employee){
+    this.reports.push(employee);
 
+    const reports = this.reports.length;
+
+    reports >= 1 && reports <= 3
+      ? this.title = 'Barely Manager'
+      : reports >= 4 && reports <= 10
+        ? this.title = 'Mostly Manager'
+        : reports >= 11 && reports <= 50
+          ? this.title = 'Manager'
+          : reports >= 51 && reports <= 100
+            ? this.title = 'Manager Plus'
+            : this.title = 'Bestest Manager'
+  }
+  fire(employeeIndex){
+    // this.reports.splice(this.reports.indexOf(employee), 1);
+    this.reports.splice(employeeIndex, 1);
+    this.bonus += 100;
+  }
+}
 
 ////////// PROBLEM 4 - Black Diamond //////////
 
@@ -104,4 +176,27 @@
 
 //Code Here
 
+class Machine {
+  constructor() {
+    this.widgets_made_count = 0;
+    this.wear_and_tear_count = 0;
+    this.needs_reboot = false;
+  }
 
+  makeWidgets(num) {
+    this.widgets_made_count += num;
+    const wtCount = num / 50;
+    this.wear_and_tear_count += wtCount;
+  }
+
+  fixMachine() {
+    this.needs_reboot = true;
+  }
+
+  reboot() {
+    return () => {
+      this.wear_and_tear_count -= 10;
+      this.needs_reboot = false;
+    }
+  }
+}
